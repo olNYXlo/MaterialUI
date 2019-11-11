@@ -1,5 +1,6 @@
 import {Box, Container, Typography, CssBaseline, Grid,Paper,GridList, GridListTile,DialogTitle, GridListTileBar, IconButton, Hidden} from '@material-ui/core';
 import {Button, Popper, ButtonGroup, MenuItem, MenuList, ClickAwayListener, Grow, Fab, FormGroup, FormControlLabel, FormControl, Checkbox} from '@material-ui/core'
+import {FormLabel,RadioGroup,Radio, InputLabel, Select, Icon, SvgIcon} from '@material-ui/core'
 import React from 'react';
 
 // ICONS
@@ -13,6 +14,8 @@ import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
 import FlightLandIcon from '@material-ui/icons/FlightLand';
 import FlightIcon from '@material-ui/icons/Flight';
 import FaceIcon from '@material-ui/icons/Face';
+import AccessibleForwardSharpIcon from '@material-ui/icons/AccessibleForwardSharp';
+import AccessibilitySharpIcon from '@material-ui/icons/AccessibilitySharp';
 
 import {
     DatePicker,
@@ -34,20 +37,44 @@ import dayjs from 'dayjs'
 import harold from './harold.jpg';
 import random from './random.jpg';
 import boomer from './ok boomer.jpg';
-
+import PickleRickIcon from './PickleRickIcon.svg';
+import GiantHeadIcon from './GiantHeadIcon.svg';
+import ChristianIcon from './ChristianIcon.svg';
+import MuslimIcon from './MuslimIcon.svg';
+import BuddistIcon from './BuddistIcon.svg';
 
 class Home extends React.Component{
 
     constructor(){
-        super()
+        super();
         this.state = ({
             name : "",
-            age : ""
-        })
+            age : "",
+            religion : ""
+        });
+        this.handleReligion = this.handleReligion.bind(this);
+    }
+    handleReligion = (selection) => {
+        this.setState({religion : selection.target.value})
     }
 
 
     render(){
+        const customIcons = (selection) => {
+            switch (selection) {
+                case 'Giant Head':
+                    return <img  src={GiantHeadIcon}/>;
+                case 'Christian' :
+                    return <img src={ChristianIcon}/>;
+                case 'Buddhist' :
+                    return <img src={BuddistIcon}/>;
+                case 'Muslim' :
+                    return <img src={MuslimIcon}/>;
+                default:
+                    return <img src={PickleRickIcon}/>;
+            }
+
+        }
 
 
 
@@ -234,7 +261,54 @@ class Home extends React.Component{
                     <DatePicker format="dd/mm/yyyy, MM/YYYY" margin="dense" variant="inline"/>
                     <TimePicker format="hh:mm:ss a, HH:mm:ss" variant="dialog"/>
                     <DateTimePicker variant="static"/>
-                </MuiPickersUtilsProvider> 
+                </MuiPickersUtilsProvider>
+
+                <br/>
+                <FormLabel component="legend">
+                    Gender
+                </FormLabel>
+                <RadioGroup>
+                <FormControlLabel value="male" label = "male" control={<Radio checkedIcon={<AccessibilitySharpIcon/>}/>}/>
+                <FormControlLabel value="female" label = "female" control={<Radio checkedIcon={<AccessibilitySharpIcon/>}/>}/>
+                <FormControlLabel value="other" label = "other" control={<Radio checkedIcon={<AccessibleForwardSharpIcon/>}/>}/>
+                </RadioGroup>
+
+                <br/>
+
+                <FormControl>
+                    <InputLabel id ="selectedReligion">
+                    Religion
+                    </InputLabel>
+
+                    <Select labelId="selectedReligion" value = {this.religion} onChange={this.handleReligion}>
+                    <MenuItem value ="PickleRick">Pickle Rick</MenuItem>
+                    <MenuItem value ="Christian">Christian</MenuItem>
+                    <MenuItem value ="Muslim">Muslim</MenuItem>
+                    <MenuItem value ="Buddhist">Buddhist</MenuItem>
+                    <MenuItem value="Giant Head">Giant Head</MenuItem>
+                    </Select>
+
+
+
+                </FormControl>
+                <br/>
+                <Typography>Welcome To The {this.state.religion} Community </Typography>
+                <div>
+                    {this.state.religion &&
+                    <Icon>
+                    {customIcons(this.state.religion)}
+                    </Icon>
+                    }
+                </div>
+                
+
+                <br/>
+                <SvgIcon>
+                    <path d="M50 24l-1.80-1.41L13 16.17V4h-2v12.23m-5.58-5.59L4 12l8 8 9-8z"/>
+                </SvgIcon>
+
+
+
 
 
 
