@@ -1,6 +1,7 @@
-import {Box, Container, Typography, CssBaseline, Grid,Paper,GridList, GridListTile,DialogTitle, GridListTileBar, IconButton, Hidden} from '@material-ui/core';
+import {Box, Container, Typography, CssBaseline, Grid,Paper,GridList, GridListTile,DialogTitle, GridListTileBar, IconButton, Hidden, InputAdornment} from '@material-ui/core';
 import {Button, Popper, ButtonGroup, MenuItem, MenuList, ClickAwayListener, Grow, Fab, FormGroup, FormControlLabel, FormControl, Checkbox} from '@material-ui/core'
-import {FormLabel,RadioGroup,Radio, InputLabel, Select, Icon, SvgIcon} from '@material-ui/core'
+import {FormLabel,RadioGroup,Radio, InputLabel, Select, Icon, SvgIcon, Slider, TextField, FormHelperText, Input, FilledInput, OutlinedInput} from '@material-ui/core'
+//import {} from '@material-ui/core';
 import React from 'react';
 
 // ICONS
@@ -50,12 +51,22 @@ class Home extends React.Component{
         this.state = ({
             name : "",
             age : "",
-            religion : ""
+            religion : "",
+            password: "",
+            showPassword: false
         });
         this.handleReligion = this.handleReligion.bind(this);
+        this.handlePw = this.handlePw.bind(this);
+        this.handleShowPw = this.handleShowPw.bind(this);
     }
     handleReligion = (selection) => {
         this.setState({religion : selection.target.value})
+    }
+    handlePw = (inputPw) => {
+        this.setState({password : inputPw.target.value})
+    }
+    handleShowPw = () => {
+        this.setState({showPassword : !this.state.showPassword})
     }
 
 
@@ -63,15 +74,15 @@ class Home extends React.Component{
         const customIcons = (selection) => {
             switch (selection) {
                 case 'Giant Head':
-                    return <img  src={GiantHeadIcon}/>;
+                    return <img width="100%" src={GiantHeadIcon} alt='Giant Head'/>;
                 case 'Christian' :
-                    return <img src={ChristianIcon}/>;
+                    return <img width="100%" src={ChristianIcon} alt='Christian'/>;
                 case 'Buddhist' :
-                    return <img src={BuddistIcon}/>;
+                    return <img width="100%" src={BuddistIcon} alt='Buddhist'/>;
                 case 'Muslim' :
-                    return <img src={MuslimIcon}/>;
+                    return <img width="100%" src={MuslimIcon} alt='Muslim'/>;
                 default:
-                    return <img src={PickleRickIcon}/>;
+                    return <img width="100%" src={PickleRickIcon} alt='PickleRick'/>;
             }
 
         }
@@ -292,6 +303,8 @@ class Home extends React.Component{
 
                 </FormControl>
                 <br/>
+
+
                 <Typography>Welcome To The {this.state.religion} Community </Typography>
                 <div>
                     {this.state.religion &&
@@ -306,6 +319,170 @@ class Home extends React.Component{
                 <SvgIcon>
                     <path d="M50 24l-1.80-1.41L13 16.17V4h-2v12.23m-5.58-5.59L4 12l8 8 9-8z"/>
                 </SvgIcon>
+
+                <br/>
+                <Typography>Height (in cm) </Typography>
+                <Slider 
+                defaultValue={150}
+                valueLabelDisplay="auto"
+                step={5}
+                marks
+                min={100}
+                max={200}
+                />
+                <Typography>Height (in m) </Typography>
+                <Slider 
+                defaultValue={1.5}
+                valueLabelDisplay="auto"
+                step={0.1}
+                min={1}
+                max = {2}
+                />
+
+                              
+                <Typography >Volume </Typography>
+                <Box height={200}>
+                <Slider 
+                defaultValue={50}
+                valueLabelDisplay="on"
+                orientation='vertical'
+                />
+                </Box>
+
+                <Typography inline />
+
+                
+                <Typography >Temperature </Typography>
+                <Box height={200}>
+                <Slider 
+                defaultValue={[20,37]}
+                valueLabelDisplay="auto"
+                orientation='vertical'
+                marks = {[
+                    {
+                      value: 0,
+                      label: '0°C',
+                    },
+                    {
+                      value: 20,
+                      label: '20°C',
+                    },
+                    {
+                      value: 37,
+                      label: '37°C',
+                    },
+                    {
+                      value: 100,
+                      label: '100°C',
+                    },
+                  ]}
+                />
+                </Box>
+                
+                <Typography inline />
+                <TextField 
+                required
+                label="Username"
+                variant="filled"
+                helperText="Username is your Employee ID"
+                margin="normal"
+                autoComplete
+                />
+                <TextField 
+                required
+                label="Password"
+                type={this.state.showPassword ? 'text' : 'password'}
+                variant="outlined"
+                helperText="Password should contain 8-12 alphanumeric characters"
+                margin="normal"
+                autoComplete
+                value = {this.state.password}
+                onChange={this.handlePw}
+                InputProps={{
+                    endAdornment : (
+                        <InputAdornment position="end">
+                            <IconButton onClick={this.handleShowPw}>
+                                {this.state.showPassword ? <AccessibilitySharpIcon/> : <AccessibleForwardSharpIcon/>}
+                            </IconButton>
+                        </InputAdornment>
+                    )
+                }}
+                />
+                <TextField 
+                error
+                label="Error Code"
+                variant="standard"
+                margin="normal"
+                />
+                <TextField 
+                label="Sample Password"
+                defaultValue="Password123!"
+                variant="outlined"
+                margin="normal"
+                InputProps={{
+                    readOnly: true
+                }}
+                />
+
+                
+                <TextField
+                helperText="Please upload your profile image in png or jpeg format"
+                type="file"
+                inputProps={{
+                    accept : "image/*",
+                    multiple : true
+                }}
+                InputProps={{
+                    endAdornment: (
+                        <InputAdornment position="end">
+                            <IconButton>
+                                <Fab size="small" variant="extended">Submit</Fab>
+                            </IconButton>
+                        
+                        </InputAdornment>
+                    )
+                }}
+                />
+                
+
+                <Typography inline />
+                <TextField 
+                label="Medical Conditions"
+                variant="filled"
+                margin="normal"
+                multiline
+                rowsMax="4"
+                />
+                <TextField 
+                label="Salary"
+                variant="filled"
+                margin="normal"
+                InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">
+                        <AccessibilitySharpIcon/>
+                        </InputAdornment>
+                    )
+                }}
+                />
+                <TextField 
+                label="Job Title"
+                variant="outlined"
+                margin="normal"
+                InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="end">
+                        <Icon>
+                            <img width="100%" src={PickleRickIcon} alt='Pickle Rick'/>
+                        </Icon>
+                        </InputAdornment>
+                    )
+                }}
+                />
+
+
+
+
 
 
 
