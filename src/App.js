@@ -23,6 +23,9 @@ function App() {
           <li>
             <Link to="/Home">Home</Link>
           </li>
+          <li>
+            <Link to="/Manulife">Manulife</Link>
+          </li>
         </ul>
       </header>
     </div>
