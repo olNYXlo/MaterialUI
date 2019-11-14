@@ -1,7 +1,8 @@
 import {Box, Container, Typography, CssBaseline, Grid,Paper,GridList, GridListTile,DialogTitle, GridListTileBar, IconButton, Hidden, InputAdornment} from '@material-ui/core';
 import {Button, Popper, ButtonGroup, MenuItem, MenuList, ClickAwayListener, Grow, Fab, FormGroup, FormControlLabel, FormControl, Checkbox} from '@material-ui/core'
 import {FormLabel,RadioGroup,Radio, InputLabel, Select, Icon, SvgIcon, Slider, TextField, FormHelperText, Input, FilledInput, OutlinedInput} from '@material-ui/core'
-//import {} from '@material-ui/core';
+import {BottomNavigation, BottomNavigationAction} from '@material-ui/core';
+import {Link} from 'react-router-dom'
 import React from 'react';
 
 // ICONS
@@ -481,6 +482,16 @@ class Home extends React.Component{
                 />
 
 
+                <BottomNavigation  showLabels>
+                <BottomNavigationAction label="FLY BACK" icon={
+                    <Link to="/">GO BACK</Link>
+                    }
+                    
+                    />
+
+                </BottomNavigation>
+
+                <Link to="/">Back</Link>
 
 
 
