@@ -26,6 +26,9 @@ function App() {
           <li>
             <Link to="/Manulife">Manulife</Link>
           </li>
+          <li>
+            <Link to="/Timesheet">Timesheet</Link>
+          </li>
         </ul>
       </header>
     </div>
