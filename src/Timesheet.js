@@ -28,7 +28,12 @@ class Timesheet extends React.Component {
 
     constructor(){
         super()
+        this.handleInput = this.handleInput.bind(this);
     }
+
+    handleInput = (input) => {
+      sessionStorage.setItem(input.target.id, input.target.value)
+  }
 
     calendar = [
         [
@@ -150,14 +155,14 @@ class Timesheet extends React.Component {
         ]
       ];
 
-      fields = this.calendar.map((value, i) => (
+      fields = this.calendar.map( day => (
 
 
-          <Grid container direction="column" key={value[0]}>
+          <Grid container direction="column" key={day[0]}>
 
-              <Grid item xs={2}>
+              <Grid item xs={4}>
               <TextField 
-                defaultValue={value[0]}
+                defaultValue={day[0]}
                 variant="outlined"
                 margin="normal"
                 InputProps={{
@@ -166,9 +171,9 @@ class Timesheet extends React.Component {
                 />
               </Grid>
 
-              <Grid item xs={2}>
+              <Grid item xs={4}>
               <TextField 
-                defaultValue={value[1]}
+                defaultValue={day[1]}
                 variant="outlined"
                 margin="normal"
                 InputProps={{
@@ -177,9 +182,19 @@ class Timesheet extends React.Component {
                 />
               </Grid>
 
-              <Grid item xs={2}>
-                  <TextField required label="Hours Worked" variant="filled" margin="normal" />
+              <Grid item xs={4}>
+                  <TextField required label="Hours Worked" variant="filled" margin="normal" 
+                  onChange={this.handleInput} 
+                  type = 'text'
+                  id = {day[0]}
+                  defaultValue = ""
+                  value = {sessionStorage.getItem([day[0]])}
+                  />
               </Grid>
+
+              <Typography>
+                {sessionStorage.getItem([day[0]])}
+              </Typography>
 
           </Grid>
           
@@ -453,10 +468,26 @@ class Timesheet extends React.Component {
                 
                 </Typography>
             </Container>
-            
+            <Typography style={{color : "blue"}}>
+              Timesheet displayed without margin (Using complicated conditional rendering)
+            </Typography>
             <Grid container direction="column">
               {this.fields3}
             </Grid>
+
+            <Typography style={{color : "blue"}}>
+              Timesheet displayed with normal margin (Using simple mapping)
+            </Typography>
+
+            <GridList container direction="row" cols={7}>
+              {this.fields}
+            </GridList>
+
+            <Typography>
+              {JSON.stringify(sessionStorage)}
+              {sessionStorage.getItem("1")}
+
+            </Typography>
 
 
             </Container>
