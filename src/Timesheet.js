@@ -136,6 +136,7 @@ class Timesheet extends React.Component {
                   onChange={this.handleInput} 
                   type = 'text'
                   id = {day[0]}
+                  defaultValue = {day[2]}
                   />
               </Grid>
 
