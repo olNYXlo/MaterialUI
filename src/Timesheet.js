@@ -26,133 +26,82 @@ import boomer from './ok boomer.jpg';
 
 class Timesheet extends React.Component {
 
+  /*
+  componentWillMount = () => {
+
+    Axios.post('http://192.168.200.200:8080/backendapi/employee/60/timesheets/11/2019')
+            .then(response => {
+                this.setState({ calendar: response.data });
+                console.log("Response Received : ", response);
+
+            }).catch(err => {
+                console.log("AXIOS ERROR : ", err);
+            })
+
+  }
+  */
+
     constructor(){
-        super()
+        super();
+        this.state = ({
+          noOfMC : 0,
+          temp : "",
+          calendar : []
+        });
         this.handleInput = this.handleInput.bind(this);
+        this.handleNoOfMC = this.handleNoOfMC.bind(this);
     }
 
     handleInput = (input) => {
+      this.setState({temp : input.target.value})
       sessionStorage.setItem(input.target.id, input.target.value)
-  }
+      this.calendar[input.target.id-1][2] = (input.target.value);
+      console.log("Inserting the values: " + input.target.value)
+      console.log("Inserting into the index " + input.target.id)
+      console.log(this.calendar[input.target.id-1])
+      console.log(this.calendar)
+      console.log(this.state)
+    }
+
+    handleNoOfMC = (selection) => {
+        this.setState({noOfMC : selection.target.value})
+    }
+  
 
     calendar = [
         [
           "1",
-          "Tue"
-        ],[
-          "2",
-          "Wed"
-        ],[
-          "3",
-          "Thu"
-        ],[
-          "4",
-          "Fri"
-        ],[
-          "5",
-          "Sat"
-        ],[
-          "6",
-          "Sun"
-        ],[
-          "7",
-          "Mon"
-        ],[
-          "8",
-          "Tue"
-        ],
-        [
-          "9",
-          "Wed"
-        ],
-        [
-          "10",
-          "Thu"
-        ],
-        [
-          "11",
-          "Fri"
-        ],
-        [
-          "12",
-          "Sat"
-        ],
-        [
-          "13",
-          "Sun"
-        ],
-        [
-          "14",
-          "Mon"
-        ],
-        [
-          "15",
-          "Tue"
-        ],
-        [
-          "16",
-          "Wed"
-        ],
-        [
-          "17",
-          "Thu"
-        ],
-        [
-          "18",
-          "Fri"
-        ],
-        [
-          "19",
-          "Sat"
-        ],
-        [
-          "20",
-          "Sun"
-        ],
-        [
-          "21",
-          "Mon"
-        ],
-        [
-          "22",
-          "Tue"
-        ],
-        [
-          "23",
-          "Wed"
-        ],
-        [
-          "24",
-          "Thu"
-        ],
-        [
-          "25",
-          "Fri"
-        ],
-        [
-          "26",
-          "Sat"
-        ],
-        [
-          "27",
-          "Sun"
-        ],
-        [
-          "28",
-          "Mon"
-        ],
-        [
-          "29",
-          "Tue"
-        ],
-        [
-          "30",
-          "Wed"
-        ],
-        [
-          "31",
-          "Thu"
-        ]
+          "Tue","MC"],["2",
+          "Wed"],["3",
+          "Thu"],["4",
+          "Fri"],["5",
+          "Sat"],["6",
+          "Sun"],["7",
+          "Mon"],["8",
+          "Tue"],["9",
+          "Wed"],["10",
+          "Thu"],["11",
+          "Fri"],["12",
+          "Sat"],["13",
+          "Sun"],["14",
+          "Mon"],["15",
+          "Tue"],["16",
+          "Wed"],["17",
+          "Thu"],["18",
+          "Fri"],["19",
+          "Sat"],["20",
+          "Sun"],["21",
+          "Mon"],["22",
+          "Tue"],["23",
+          "Wed"],["24",
+          "Thu"],["25",
+          "Fri"],["26",
+          "Sat"],["27",
+          "Sun"],["28",
+          "Mon"],["29",
+          "Tue"],["30",
+          "Wed"],["31",
+          "Thu"]
       ];
 
       fields = this.calendar.map( day => (
@@ -187,8 +136,6 @@ class Timesheet extends React.Component {
                   onChange={this.handleInput} 
                   type = 'text'
                   id = {day[0]}
-                  defaultValue = ""
-                  value = {sessionStorage.getItem([day[0]])}
                   />
               </Grid>
 
@@ -420,45 +367,80 @@ class Timesheet extends React.Component {
 
             
 
-      fields2 = () => {
-          var result = [];
-          for (var i = 0; i < 5; i ++){
-              result.push(
-            <Grid container direction="column">
+      
 
-            <Grid item xs={2}>
-            <TextField 
-              defaultValue={this.calendar[i][0]}
-              variant="outlined"
-              margin="normal"
-              InputProps={{
-                  readOnly: true
-              }}
-              />
-            </Grid>
-
-            <Grid item xs={2}>
-            <TextField 
-              defaultValue={this.calendar[i][1]}
-              variant="outlined"
-              margin="normal"
-              InputProps={{
-                  readOnly: true
-              }}
-              />
-            </Grid>
-
-            <Grid item xs={2}>
-                <TextField required label="Hours Worked" variant="filled" margin="normal" />
-            </Grid>
-
-        </Grid>
-              )}
+      MCs = () => {
+        var count = 0
+        var result = []
+        while (parseInt(this.state.noOfMC) > count){
+          result.push(
+          <TextField type = "file" 
+          helperText="Please upload your MC in png or jpeg format"
+          inputProps={{
+            accept : "image/*",
+            multiple : false
+            }}/>)
+          count++
+        }
       }
 
 
       render(){
           console.log(this.leftoverdays)
+
+            var result = [];
+            for (var i = 0; i < 5; i ++){
+                result.push(
+              <Grid container direction="column">
+  
+              <Grid item xs={2}>
+              <TextField 
+                defaultValue={this.calendar[i][0]}
+                variant="outlined"
+                margin="normal"
+                InputProps={{
+                    readOnly: true
+                }}
+                />
+              </Grid>
+  
+              <Grid item xs={2}>
+              <TextField 
+                defaultValue={this.calendar[i][1]}
+                variant="outlined"
+                margin="normal"
+                InputProps={{
+                    readOnly: true
+                }}
+                />
+              </Grid>
+  
+              <Grid item xs={2}>
+                  <TextField required label="Hours Worked" variant="filled" margin="normal" />
+              </Grid>
+  
+          </Grid>
+                )}
+
+
+
+        var count = 0
+        var result2 = []
+        while (count < this.state.noOfMC){
+          result2.push(
+          <TextField 
+          id = {count}
+          type = "file" 
+          helperText="Please upload your MC in png or jpeg format"
+          inputProps={{
+            accept : "image/*",
+            multiple : false
+            }}
+            margin = "normal"
+            variant = "filled"
+            />)
+          count++
+        }
 
         return (
             <Container maxWidth="lg" >
@@ -484,10 +466,73 @@ class Timesheet extends React.Component {
             </GridList>
 
             <Typography>
+              Printing Session Storage...
+              <br/>
               {JSON.stringify(sessionStorage)}
+              <br/>
+              Printing value of item "1" inside Session Storage...
+              <br/>
               {sessionStorage.getItem("1")}
 
             </Typography>
+            <br/>
+
+            <Typography>
+              Printing Timesheet Values....
+              <br/>
+            {this.calendar}
+            </Typography>
+            <br/>
+
+
+            <FormControl fullWidth>
+                    <InputLabel id ="noOfMC">
+                    Number Of MC
+                    </InputLabel>
+
+                    <Select labelId="noOfMC" value = {this.noOfMC} onChange={this.handleNoOfMC}>
+                    <MenuItem value = "1">1</MenuItem>
+                    <MenuItem value ="2">2</MenuItem>
+                    <MenuItem value ="3">3</MenuItem>
+                    <MenuItem value ="4">4</MenuItem>
+                    <MenuItem value ="5">5</MenuItem>
+                    </Select>
+
+
+
+            </FormControl>
+
+            <br/>
+
+            
+
+            <Typography>
+              No Of MC :  
+              {this.state.noOfMC}
+              <br/>
+              (Just to verify state is changed)
+            </Typography>
+
+            <br/>
+            
+
+
+
+
+            <GridList container cols = {4} spacing = "110">
+              {result2}
+            </GridList>
+            <br/>
+
+            
+
+            
+            
+
+
+
+
+
 
 
             </Container>
