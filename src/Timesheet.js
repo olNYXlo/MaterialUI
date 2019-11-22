@@ -105,6 +105,7 @@ class Timesheet extends React.Component {
           "Thu"]
       ];
 
+      // Easiest solution
       fields = this.calendar.map( day => (
 
 
@@ -150,6 +151,9 @@ class Timesheet extends React.Component {
           
       ));
 
+
+      // Long winded solution
+      // PLS IGNORE
       week = [0,1,2,3,4];
 
       fields3 = this.week.map(value => (
@@ -371,6 +375,7 @@ class Timesheet extends React.Component {
 
       
 
+      // To selectively render number of file uploads based on user input
       MCs = () => {
         var count = 0
         var result = []
