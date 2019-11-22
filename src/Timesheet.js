@@ -29,7 +29,7 @@ class Timesheet extends React.Component {
   /*
   componentWillMount = () => {
 
-    Axios.post('http://192.168.200.200:8080/backendapi/employee/60/timesheets/11/2019')
+    Axios.post('http://192.168.200.200:8080/backendapi_test/employee/60/timesheets/11/2019')
             .then(response => {
                 this.setState({ calendar: response.data });
                 console.log("Response Received : ", response);
@@ -45,15 +45,16 @@ class Timesheet extends React.Component {
         super();
         this.state = ({
           noOfMC : 0,
-          temp : "",
-          calendar : []
+          calendar : [ [
+            "1",
+            "Tue","MC"],["2",
+            "Wed"]]
         });
         this.handleInput = this.handleInput.bind(this);
         this.handleNoOfMC = this.handleNoOfMC.bind(this);
     }
 
     handleInput = (input) => {
-      this.setState({temp : input.target.value})
       sessionStorage.setItem(input.target.id, input.target.value)
       this.calendar[input.target.id-1][2] = (input.target.value);
       console.log("Inserting the values: " + input.target.value)
