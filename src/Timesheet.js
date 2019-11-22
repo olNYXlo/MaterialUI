@@ -41,6 +41,9 @@ class Timesheet extends React.Component {
   }
   */
 
+  // Have to remember to change the methods to use the value of 'calendar' from the state
+  // After implementing the axios call
+  // For now, all methods are using the variable 'calender' instead of from the state
     constructor(){
         super();
         this.state = ({
@@ -54,6 +57,9 @@ class Timesheet extends React.Component {
         this.handleNoOfMC = this.handleNoOfMC.bind(this);
     }
 
+    // method to insert the keyed in value into the array array of "timesheet" / calendar
+    // take note of the input.target.id - 1.  As index counting starts from 0
+    // check browser console to verify the method works as intended
     handleInput = (input) => {
       sessionStorage.setItem(input.target.id, input.target.value)
       this.calendar[input.target.id-1][2] = (input.target.value);
@@ -64,11 +70,12 @@ class Timesheet extends React.Component {
       console.log(this.state)
     }
 
+    // simply sets the state of no of MC
     handleNoOfMC = (selection) => {
         this.setState({noOfMC : selection.target.value})
     }
   
-
+    // Expected data format of the HTTP response
     calendar = [
         [
           "1",
@@ -106,6 +113,11 @@ class Timesheet extends React.Component {
       ];
 
       // Easiest solution
+      // uses simple Map function
+      // which is just a for-each element loop inside the calendar
+      // Can remove the <Typography> at the end once develop finish
+      // it is just used to check the set state is working
+
       fields = this.calendar.map( day => (
 
 
@@ -154,6 +166,9 @@ class Timesheet extends React.Component {
 
       // Long winded solution
       // PLS IGNORE
+      // Initially did this to render 7 grid items in a single row
+      // Workaround for this is shown in 'fields'
+
       week = [0,1,2,3,4];
 
       fields3 = this.week.map(value => (
@@ -376,6 +391,11 @@ class Timesheet extends React.Component {
       
 
       // To selectively render number of file uploads based on user input
+      // Have to shift this to the page before
+      // As employees are expected to upload MCs first
+      // Once successful upload, the HTTP POST request will respond
+      // with the MC-IDs to be tagged along with the timesheet
+
       MCs = () => {
         var count = 0
         var result = []
@@ -392,6 +412,14 @@ class Timesheet extends React.Component {
       }
 
 
+      // Can ignore the first 'calendar' rendered
+      // Was trying to compare the formatting between 'fields' & 'fields3'
+      // Currently the Printing Timesheet Values... are not updated whenever user keys in
+      // some values. this is because the timesheet values is a constant of the class
+      // & not an attribute inside the state
+      // Once changed to use the state attribute, it should work fine
+
+      
       render(){
           console.log(this.leftoverdays)
 
