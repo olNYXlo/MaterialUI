@@ -1,3 +1,22 @@
+# Sample project relying on Material UI to develop ReactJS application
+
+Some features learned in this project :
+- Conditional Rendering (based on user's selection)
+- Custom Icons
+- Conditional Rendering (based on existence in LocalStorage / SessionStorage)
+- Use of .Map function to render multiple components
+- Routing of application
+- Creating template for 'timesheet' for users to fill in
+
+
+
+
+
+================================================================
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
