@@ -29,6 +29,9 @@ function App() {
           <li>
             <Link to="/Timesheet">Timesheet</Link>
           </li>
+          <li>
+            <Link to="/Login">Login</Link>
+          </li>
         </ul>
       </header>
     </div>
